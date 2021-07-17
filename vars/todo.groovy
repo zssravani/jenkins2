@@ -1,7 +1,7 @@
 def call(Map params = [:]) {
     // Start Default Arguments
     def args = [
-            NEXUS_IP               : '172.31.4.76',
+            NEXUS_IP               : '172.31.14.124',
     ]
     args << params
 
@@ -27,6 +27,7 @@ def call(Map params = [:]) {
 
             stage('Build Code & Install Dependencies') {
                 steps {
+                    sh 'env'
                     script {
                         build = new nexus()
                         build.code_build("${APP_TYPE}", "${COMPONENT}")
@@ -53,7 +54,15 @@ def call(Map params = [:]) {
                 }
             }
 
-
+            stage('Deploy to Dev Env') {
+                steps {
+                    script {
+                        get_branch = "env | grep GIT_BRANCH | awk -F / '{print \$NF}' | xargs echo -n"
+                        env.get_branch_exec=sh(returnStdout: true, script: get_branch)
+                    }
+                    build job: 'Deployment Pipeline', parameters: [string(name: 'ENV', value: 'dev'), string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'VERSION', value: "${get_branch_exec}")]
+                }
+            }
 
         }
 
