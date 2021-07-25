@@ -59,3 +59,25 @@ def call(Map params = [:]) {
 
     }
 }
+
+stage('Deploy to Dev Env') {
+    steps {
+        script {
+            get_branch = "env | grep GIT_BRANCH | awk -F / '{print \$NF}' | xargs echo -n"
+            env.get_branch_exec=sh(returnStdout: true, script: get_branch)
+        }
+        build job: 'Deployment Pipeline', parameters: [string(name: 'ENV', value: 'dev'), string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'VERSION', value: "${get_branch_exec}")]
+    }
+}
+
+}
+
+}
+
+post {
+    always {
+        cleanWs()
+    }
+}
+
+}
