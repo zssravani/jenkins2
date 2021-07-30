@@ -22,7 +22,7 @@ for (i in 0..count) {
                 'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                     'userRemoteConfigs' {
                         'hudson.plugins.git.UserRemoteConfig' {
-                            'url'('https://github.com/Sravanizelar/jenkins2'+j+'.git')
+                            'url'('https://github.com/zssravani/jenkins2'+j+'.git')
                             'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
                         }
                     }
@@ -44,7 +44,7 @@ pipelineJob("Deployment Pipeline") {
             'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                 'userRemoteConfigs' {
                     'hudson.plugins.git.UserRemoteConfig' {
-                        'url'('https://github.com/Sravanizelar/jenkins2.git')
+                        'url'('https://github.com/zssravani/jenkins2.git')
                     }
                 }
                 'branches' {
