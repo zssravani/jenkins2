@@ -22,7 +22,7 @@ for (i in 0..count) {
                 'scm'(class:'hudson.plugins.git.GitSCM',plugin:'git') {
                     'userRemoteConfigs' {
                         'hudson.plugins.git.UserRemoteConfig' {
-                            'url'('https://github.com/Sravanizelar/' +j+'.git')
+                            'url'('https://github.com/Sravanizelar/jenkins2' +j+'.git')
                             'refspec'('\'+refs/tags/*\':\'refs/remotes/origin/tags/*\'')
                         }
                     }
